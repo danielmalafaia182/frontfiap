@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">LocaMail</string>
+    <string name="email_input">Enter your email</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="password_input">Enter your password</string>
+    <string name="forgot_password">Forgot my password</string>
+    <string name="login_options">Or login with</string>
+    <string name="does_not_have_account">Does not have an account? </string>
+    <string name="register_here">Register here</string>
+    <string name="login">Login</string>
+    <string name="email_login_error">Email cannot be empty!</string>
+    <string name="password_login_error">Password cannot be empty!</string>
+</resources>

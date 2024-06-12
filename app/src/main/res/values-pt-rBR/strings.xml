@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">LocaMail</string>
+    <string name="email_input">Informe seu Email</string>
+    <string name="password">Senha</string>
+    <string name="email">Email</string>
+    <string name="password_input">Informe sua senha</string>
+    <string name="forgot_password">Esqueci minha senha</string>
+    <string name="login_options">Ou entre com</string>
+    <string name="does_not_have_account">Não tem uma conta?</string>
+    <string name="register_here">Cadastre-se aqui</string>
+    <string name="login">Entrar</string>
+    <string name="email_login_error">O email é obrigatório!</string>
+    <string name="password_login_error">A senha é obrigatória!</string>
+</resources>
