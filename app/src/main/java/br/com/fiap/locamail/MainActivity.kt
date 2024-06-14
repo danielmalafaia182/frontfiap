@@ -12,7 +12,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.fiap.locamail.login.LoginScreen
 import br.com.fiap.locamail.menu.MenuScreen
-import br.com.fiap.locamail.register.RegisterScreen
 import br.com.fiap.locamail.ui.theme.LocaMailTheme
 
 class MainActivity : ComponentActivity() {
@@ -39,7 +38,7 @@ class MainActivity : ComponentActivity() {
 //                            MenuScreen(navController, userId!!)
                         }
                         composable(route = "register"){
-                            RegisterScreen(navController)
+                            //RegisterScreen(navController)
                         }
                     }
                 }
