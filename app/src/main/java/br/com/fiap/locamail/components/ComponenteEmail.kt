@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -35,7 +36,8 @@ fun ComponenteEmail(email: Email) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(end = 8.dp)
-            .clickable { /* Handle email click */ },
+            .clickable { /* Handle email click */ }
+            .then(if (email.isRead) Modifier.shadow(4.dp) else Modifier),
         colors = CardDefaults.cardColors(containerColor = Color(0xFF181E24))
     ) {
         Row(modifier = Modifier.padding(16.dp)) {
@@ -55,7 +57,7 @@ fun ComponenteEmail(email: Email) {
                 ) {
                     Text(
                         text = email.sender,
-                        color = Color.White,
+                        color = if (email.isRead) Color.White else Color(0xFF5E5D5D),
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier.weight(1f),
                         fontFamily = Inter,
@@ -64,7 +66,7 @@ fun ComponenteEmail(email: Email) {
                     Text(
                         text = email.timestamp,
                         fontWeight = FontWeight.Medium,
-                        color = Color.White,
+                        color = if (email.isRead) Color.White else Color(0xFF5E5D5D),
                         modifier = Modifier.align(Alignment.CenterVertically),
                         fontFamily = Inter,
                         fontSize = 12.sp
@@ -73,7 +75,7 @@ fun ComponenteEmail(email: Email) {
                 Text(
                     text = email.subject,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White,
+                    color = if (email.isRead) Color.White else Color(0xFF5E5D5D),
                     fontFamily = Inter,
                     fontSize = 16.sp
                 )
@@ -81,7 +83,7 @@ fun ComponenteEmail(email: Email) {
                     text = email.body,
                     style = MaterialTheme.typography.bodySmall,
                     overflow = TextOverflow.Ellipsis,
-                    color = Color.White,
+                    color = if (email.isRead) Color.White else Color(0xFF5E5D5D),
                     fontFamily = Inter,
                 )
             }

@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun MenuCaixaEmail(
     isEmailListVisible: Boolean,
-    emailCount: Int,
+    unreadCount: Int,
     onClick: () -> Unit,
     nomeCaixaEmail: String
 ) {
@@ -43,7 +43,7 @@ fun MenuCaixaEmail(
                 tint = Color.White
             )
             Text(
-                text = "$nomeCaixaEmail ($emailCount)",
+                text = "$nomeCaixaEmail ($unreadCount)",
                 color = Color.White,
                 fontSize = 16.sp,
                 modifier = Modifier.padding(start = 8.dp)

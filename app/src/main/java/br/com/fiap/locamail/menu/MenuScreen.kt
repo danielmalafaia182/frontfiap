@@ -64,7 +64,6 @@ import br.com.fiap.locamail.functions.generateEmails
 import br.com.fiap.locamail.ui.theme.Inter
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun MenuScreen(navController: NavController?) {
     var searchBar by remember { mutableStateOf("") }
@@ -77,6 +76,11 @@ fun MenuScreen(navController: NavController?) {
     val locaMailEmails by remember { mutableStateOf(generateEmails()) }
     val dominioXEmails by remember { mutableStateOf(generateEmails()) }
     val dominioYEmails by remember { mutableStateOf(generateEmails()) }
+
+    val principalUnread = principalEmails.count { !it.isRead }
+    val locaMailUnread = locaMailEmails.count { !it.isRead }
+    val dominioXUnread = dominioXEmails.count { !it.isRead }
+    val dominioYUnread = dominioYEmails.count { !it.isRead }
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
@@ -105,16 +109,18 @@ fun MenuScreen(navController: NavController?) {
                     fontFamily = Inter,
                     fontSize = 12.sp
                 )
-                DrawerItem("Principal", principalEmails.size, Icons.Default.Inbox)
-                DrawerItem("LocaMail", locaMailEmails.size, Icons.Default.LocalOffer)
-                DrawerItem("Domínio X", dominioXEmails.size, Icons.Default.People)
-                DrawerItem("Domínio Y", dominioYEmails.size, Icons.Default.Update)
+                DrawerItem("Principal", principalUnread, Icons.Default.Inbox)
+                DrawerItem("LocaMail", locaMailUnread, Icons.Default.LocalOffer)
+                DrawerItem("Domínio X", dominioXUnread, Icons.Default.People)
+                DrawerItem("Domínio Y", dominioYUnread, Icons.Default.People)
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "MARCAÇÕES",
+                    text = "EMAILS",
                     color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    fontFamily = Inter,
+                    fontSize = 12.sp
                 )
                 DrawerItem("Com estrela", 4, Icons.Default.Star)
                 DrawerItem("Adiados", 12, Icons.Default.Schedule)
@@ -166,7 +172,7 @@ fun MenuScreen(navController: NavController?) {
                     ) {
                         MenuCaixaEmail(
                             isEmailListVisible = isPrincipalVisible,
-                            emailCount = principalEmails.size,
+                            unreadCount = principalUnread,
                             onClick = { isPrincipalVisible = !isPrincipalVisible },
                             nomeCaixaEmail = stringResource(id = R.string.all_email_boxes)
                         )
@@ -175,7 +181,7 @@ fun MenuScreen(navController: NavController?) {
                         }
                         MenuCaixaEmail(
                             isEmailListVisible = isLocaMailVisible,
-                            emailCount = locaMailEmails.size,
+                            unreadCount = locaMailUnread,
                             onClick = { isLocaMailVisible = !isLocaMailVisible },
                             nomeCaixaEmail = stringResource(id = R.string.app_name)
                         )
@@ -184,7 +190,7 @@ fun MenuScreen(navController: NavController?) {
                         }
                         MenuCaixaEmail(
                             isEmailListVisible = isDominioXVisible,
-                            emailCount = dominioXEmails.size,
+                            unreadCount = dominioXUnread,
                             onClick = { isDominioXVisible = !isDominioXVisible },
                             nomeCaixaEmail = stringResource(id = R.string.x_domain)
                         )
@@ -193,7 +199,7 @@ fun MenuScreen(navController: NavController?) {
                         }
                         MenuCaixaEmail(
                             isEmailListVisible = isDominioYVisible,
-                            emailCount = dominioYEmails.size,
+                            unreadCount = dominioYUnread,
                             onClick = { isDominioYVisible = !isDominioYVisible },
                             nomeCaixaEmail = stringResource(id = R.string.y_domain)
                         )

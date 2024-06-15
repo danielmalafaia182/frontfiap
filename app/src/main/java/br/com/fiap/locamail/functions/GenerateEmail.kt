@@ -16,8 +16,9 @@ fun generateEmails(count: Int = Random.nextInt(1, 15)): List<Email> {
         R.drawable.rosto5,
     )
 
+    val unreadCount = if (count == 1) 1 else Random.nextInt(1, count)
 
-    return List(count) {
+    return List(unreadCount) {
         Email(
             sender = faker.name.firstName().uppercase() + " " + faker.name.lastName().uppercase(),
             subject = faker.random.randomString(min = 3, max = 8).lowercase()

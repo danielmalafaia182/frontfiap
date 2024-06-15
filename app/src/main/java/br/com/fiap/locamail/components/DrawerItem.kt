@@ -50,7 +50,7 @@ fun DrawerItem(label: String, count: Int, icon: ImageVector) {
         }
         if (count > 0) {
             Text(
-                text = "$count novas",
+                text = "${String.format("%02d", count)} novas",
                 color = Color.White,
                 fontSize = 14.sp,
                 modifier = Modifier
