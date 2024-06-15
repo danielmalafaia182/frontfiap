@@ -15,6 +15,6 @@ fun LoginOptionButton(icon: Int, contentDescription: String) {
         contentDescription = contentDescription,
         modifier = Modifier
             .size(40.dp)
-            .clickable {  }
+            .clickable { }
     )
 }

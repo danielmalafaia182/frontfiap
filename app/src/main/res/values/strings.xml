@@ -11,4 +11,9 @@
     <string name="login">Login</string>
     <string name="email_login_error">Email cannot be empty!</string>
     <string name="password_login_error">Password cannot be empty!</string>
+    <string name="logo_description">Logo LocaMail</string>
+    <string name="search_bar">Search on LocaMail</string>
+    <string name="all_email_boxes">All Inboxes</string>
+    <string name="x_domain">X Domain</string>
+    <string name="y_domain">Y Domain</string>
 </resources>

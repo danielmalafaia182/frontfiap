@@ -69,6 +69,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("io.github.serpro69:kotlin-faker:1.15.0")
+    implementation("androidx.compose.material:material:1.6.8")
+    implementation("androidx.compose.material:material-icons-extended:1.0.0-alpha08")
+    implementation("androidx.compose.ui:ui:1.6.8")
 }
 
 

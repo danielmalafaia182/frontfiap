@@ -3,9 +3,21 @@ package br.com.fiap.locamail.login
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,8 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.fiap.locamail.R
+import br.com.fiap.locamail.components.CustomOutlinedTextField
 import br.com.fiap.locamail.components.LoginOptionButton
-import br.com.fiap.locamail.components.LoginOutlinedTextField
 import br.com.fiap.locamail.components.TextLogin
 
 @Composable
@@ -40,14 +52,14 @@ fun LoginScreen(navController: NavController?) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF17161C))
+            .background(Color(0xFF181E24))
             .padding(horizontal = 16.dp, vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Image(
             painter = painterResource(id = R.drawable.logoheader),
-            contentDescription = "Logo LocaMail",
+            contentDescription = stringResource(id = R.string.logo_description),
             modifier = Modifier
                 .size(width = 190.82.dp, height = 40.dp)
                 .offset(y = 30.dp)
@@ -57,7 +69,7 @@ fun LoginScreen(navController: NavController?) {
             modifier = Modifier
                 .fillMaxWidth()
                 .offset(y = 16.dp),
-            colors = CardDefaults.cardColors(containerColor = Color(0xFF17161C)),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFF181E24)),
         ) {
             Column(
                 modifier = Modifier
@@ -73,7 +85,7 @@ fun LoginScreen(navController: NavController?) {
                         text = stringResource(id = R.string.email),
                         color = Color.White
                     )
-                    LoginOutlinedTextField(
+                    CustomOutlinedTextField(
                         value = loginEmail,
                         onValueChange = {
                             loginEmail = it
@@ -100,7 +112,7 @@ fun LoginScreen(navController: NavController?) {
                         text = stringResource(id = R.string.password),
                         color = Color.White
                     )
-                    LoginOutlinedTextField(
+                    CustomOutlinedTextField(
                         value = loginPassword,
                         onValueChange = {
                             if (it.length < MAXIMUMPASSWORDSIZE) loginPassword = it
@@ -130,7 +142,7 @@ fun LoginScreen(navController: NavController?) {
                 Spacer(modifier = Modifier.height(24.dp))
                 Button(
                     onClick = {
-                        //navController?.navigate("menu/01")
+                        navController?.navigate("menu")
                         if (loginEmail.isEmpty()) errorEmail = true
                         if (loginPassword.isEmpty()) errorPassword = true
                     },
@@ -160,7 +172,10 @@ fun LoginScreen(navController: NavController?) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                LoginOptionButton(icon = R.drawable.linkedinlogo, contentDescription = "LinkedInLogo")
+                LoginOptionButton(
+                    icon = R.drawable.linkedinlogo,
+                    contentDescription = "LinkedInLogo"
+                )
                 LoginOptionButton(icon = R.drawable.facebooklogo, contentDescription = "XLogo")
                 LoginOptionButton(icon = R.drawable.xlogo, contentDescription = "FacebookLogo")
             }

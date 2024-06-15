@@ -11,4 +11,10 @@
     <string name="login">Entrar</string>
     <string name="email_login_error">O email é obrigatório!</string>
     <string name="password_login_error">A senha é obrigatória!</string>
+    <string name="logo_description">Logo LocaMail</string>
+    <string name="search_bar">Pesquisar no LocaMail</string>
+    <string name="all_email_boxes">Todas Caixas de Email</string>
+    <string name="x_domain">Dominio X</string>
+    <string name="y_domain">Dominio Y</string>
+
 </resources>
