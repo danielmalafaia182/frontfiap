@@ -3,6 +3,7 @@
     <string name="email_input">Informe seu Email</string>
     <string name="password">Senha</string>
     <string name="email">Email</string>
+    <string name="emails">EMAILS</string>
     <string name="password_input">Informe sua senha</string>
     <string name="forgot_password">Esqueci minha senha</string>
     <string name="login_options">Ou entre com</string>
@@ -11,10 +12,19 @@
     <string name="login">Entrar</string>
     <string name="email_login_error">O email é obrigatório!</string>
     <string name="password_login_error">A senha é obrigatória!</string>
-    <string name="logo_description">Logo LocaMail</string>
+    <string name="locaMailLogo">LocaMail Logo</string>
     <string name="search_bar">Pesquisar no LocaMail</string>
     <string name="all_email_boxes">Todas Caixas de Email</string>
-    <string name="x_domain">Dominio X</string>
-    <string name="y_domain">Dominio Y</string>
-
+    <string name="x_domain">Domínio X</string>
+    <string name="y_domain">Domínio Y</string>
+    <string name="new_count">Novas</string>
+    <string name="search_icon">Ícone de Busca</string>
+    <string name="linkedInLogo">LinkedIn Logo</string>
+    <string name="XLogo">X Logo</string>
+    <string name="FacebookLogo">Facebook Logo</string>
+    <string name="OFFLINE">OFFLINE</string>
+    <string name="INBOXES">CAIXAS DE ENTRADA</string>
+    <string name="CALENDAR">CALENDÁRIO</string>
+    <string name="online_update_message">ATUALIZAREMOS AO SE CONECTAR</string>
+    <string name="new_email">Novo Email</string>
 </resources>

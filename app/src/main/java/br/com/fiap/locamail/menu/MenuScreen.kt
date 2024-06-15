@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.DrawerValue
 import androidx.compose.material.ModalDrawer
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Drafts
 import androidx.compose.material.icons.filled.Inbox
@@ -32,7 +33,6 @@ import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.ScheduleSend
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.Update
 import androidx.compose.material.rememberDrawerState
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -60,10 +60,12 @@ import br.com.fiap.locamail.components.DrawerItem
 import br.com.fiap.locamail.components.EmailList
 import br.com.fiap.locamail.components.MenuCaixaEmail
 import br.com.fiap.locamail.components.MenuSearchBar
+import br.com.fiap.locamail.functions.OnDrawerItemClick
 import br.com.fiap.locamail.functions.contains
 import br.com.fiap.locamail.functions.generateEmails
 import br.com.fiap.locamail.ui.theme.Inter
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 @Composable
 fun MenuScreen(navController: NavController?) {
@@ -102,7 +104,7 @@ fun MenuScreen(navController: NavController?) {
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.logoheader),
-                        contentDescription = "LocaMail logo",
+                        contentDescription = stringResource(id = R.string.locaMailLogo),
                         modifier = Modifier
                             .width(107.18.dp)
                             .height(27.47.dp)
@@ -110,7 +112,7 @@ fun MenuScreen(navController: NavController?) {
                     Spacer(modifier = Modifier.width(16.dp))
                     Column {
                         Text(
-                            text = "OFFLINE",
+                            text = stringResource(id = R.string.OFFLINE),
                             color = Color(0xFFF00843),
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier
@@ -123,38 +125,86 @@ fun MenuScreen(navController: NavController?) {
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "CAIXAS DE ENTRADA",
+                    text = stringResource(id = R.string.INBOXES),
                     color = Color.White,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(vertical = 8.dp),
                     fontFamily = Inter,
                     fontSize = 12.sp
                 )
-                DrawerItem("Principal", filteredPrincipalEmails.size, Icons.Default.Inbox)
-                DrawerItem("LocaMail", filteredLocaMailEmails.size, Icons.Default.LocalOffer)
-                DrawerItem("Domínio X", filteredDominioXEmails.size, Icons.Default.People)
-                DrawerItem("Domínio Y", filteredDominioYEmails.size, Icons.Default.People)
+                DrawerItem(stringResource(id = R.string.all_email_boxes), filteredPrincipalEmails.size, Icons.Default.Inbox) {
+                    coroutineScope.launch {
+                        drawerState.close()
+                        if (!isPrincipalVisible) {
+                            isPrincipalVisible = true
+                            isLocaMailVisible = false
+                            isDominioXVisible = false
+                            isDominioYVisible = false
+                        }
+                    }
+                }
+                DrawerItem(stringResource(id = R.string.app_name), filteredLocaMailEmails.size, Icons.Default.LocalOffer) {
+                    coroutineScope.launch {
+                        drawerState.close()
+                        if (!isLocaMailVisible) {
+                            isPrincipalVisible = false
+                            isLocaMailVisible = true
+                            isDominioXVisible = false
+                            isDominioYVisible = false
+                        }
+                    }
+                }
+                DrawerItem(stringResource(id = R.string.x_domain), filteredDominioXEmails.size, Icons.Default.People) {
+                    coroutineScope.launch {
+                        drawerState.close()
+                        if (!isDominioXVisible) {
+                            isPrincipalVisible = false
+                            isLocaMailVisible = false
+                            isDominioXVisible = true
+                            isDominioYVisible = false
+                        }
+                    }
+                }
+                DrawerItem(stringResource(id = R.string.y_domain), filteredDominioYEmails.size, Icons.Default.People) {
+                    coroutineScope.launch {
+                        drawerState.close()
+                        if (!isDominioYVisible) {
+                            isPrincipalVisible = false
+                            isLocaMailVisible = false
+                            isDominioXVisible = false
+                            isDominioYVisible = true
+                        }
+                    }
+                }
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "EMAILS",
+                    text = stringResource(id = R.string.emails),
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(vertical = 8.dp),
                     fontFamily = Inter,
                     fontSize = 12.sp
                 )
-                DrawerItem("Com estrela", 4, Icons.Default.Star)
-                DrawerItem("Baixados", 12, Icons.Default.Schedule)
-                DrawerItem("Importante", 32, Icons.Default.LabelImportant)
-                DrawerItem("Enviados", 0, Icons.Default.Send)
-                DrawerItem("Programado", 0, Icons.Default.ScheduleSend)
-                DrawerItem("Caixa de saída", 0, Icons.Default.Outbox)
-                DrawerItem("Rascunhos", 0, Icons.Default.Drafts)
-                DrawerItem("Spam", 0, Icons.Default.Report)
-                DrawerItem("Lixeira", 0, Icons.Default.Delete)
+                DrawerItem("Com estrela", Random.nextInt(1, 99), Icons.Default.Star, {})
+                DrawerItem("Baixados", Random.nextInt(1, 99), Icons.Default.Schedule, {})
+                DrawerItem("Enviados", 0, Icons.Default.Send, {})
+                DrawerItem("Caixa de saída", 0, Icons.Default.Outbox, {})
+                DrawerItem("Rascunhos", 0, Icons.Default.Drafts, {})
+                DrawerItem("Spam", 0, Icons.Default.Report, {})
+                DrawerItem("Lixeira", 0, Icons.Default.Delete, {})
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = stringResource(id = R.string.CALENDAR),
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    fontFamily = Inter,
+                    fontSize = 12.sp
+                )
+                DrawerItem(stringResource(id = R.string.CALENDAR), Random.nextInt(1, 99), Icons.Default.CalendarMonth, {})
                 Row {
                     Text(
-                        text = "ATUALIZAREMOS AO SE CONECTAR",
+                        text = stringResource(id = R.string.online_update_message),
                         color = Color(0xFFF00843),
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(vertical = 8.dp),
@@ -210,7 +260,6 @@ fun MenuScreen(navController: NavController?) {
                         if (isPrincipalVisible) {
                             EmailList(emails = filteredPrincipalEmails)
                         }
-
                         MenuCaixaEmail(
                             isEmailListVisible = isLocaMailVisible,
                             unreadCount = filteredLocaMailEmails.count { !it.isRead },
@@ -275,7 +324,7 @@ fun MenuScreen(navController: NavController?) {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Novo Email",
+                            text = stringResource(id = R.string.new_email),
                             color = Color.White,
                             fontFamily = Inter,
                             fontWeight = FontWeight.SemiBold,

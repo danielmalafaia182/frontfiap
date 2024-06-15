@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.fiap.locamail.R
 import br.com.fiap.locamail.components.CustomOutlinedTextField
@@ -59,7 +60,7 @@ fun LoginScreen(navController: NavController?) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.logoheader),
-            contentDescription = stringResource(id = R.string.logo_description),
+            contentDescription = stringResource(id = R.string.locaMailLogo),
             modifier = Modifier
                 .size(width = 190.82.dp, height = 40.dp)
                 .offset(y = 30.dp)
@@ -142,9 +143,17 @@ fun LoginScreen(navController: NavController?) {
                 Spacer(modifier = Modifier.height(24.dp))
                 Button(
                     onClick = {
-                        navController?.navigate("menu")
-                        if (loginEmail.isEmpty()) errorEmail = true
-                        if (loginPassword.isEmpty()) errorPassword = true
+                        if (loginEmail.isEmpty()) {
+                            errorEmail = true
+                        }
+                        if (loginPassword.isEmpty()) {
+                            errorPassword = true
+                        }
+                        if (!errorEmail && !errorPassword) {
+                            navController?.navigate("menu") {
+                                popUpTo("login") { inclusive = true }
+                            }
+                        }
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF00843)),
                     shape = RoundedCornerShape(6.dp),
@@ -155,7 +164,8 @@ fun LoginScreen(navController: NavController?) {
                     TextLogin(
                         text = stringResource(id = R.string.login),
                         color = Color.White,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        fontSize = 14.sp,
                     )
                 }
             }
@@ -174,10 +184,10 @@ fun LoginScreen(navController: NavController?) {
             ) {
                 LoginOptionButton(
                     icon = R.drawable.linkedinlogo,
-                    contentDescription = "LinkedInLogo"
+                    contentDescription = stringResource(id = R.string.linkedInLogo)
                 )
-                LoginOptionButton(icon = R.drawable.facebooklogo, contentDescription = "XLogo")
-                LoginOptionButton(icon = R.drawable.xlogo, contentDescription = "FacebookLogo")
+                LoginOptionButton(icon = R.drawable.facebooklogo, contentDescription = stringResource(id = R.string.XLogo))
+                LoginOptionButton(icon = R.drawable.xlogo, contentDescription = stringResource(id = R.string.FacebookLogo))
             }
         }
         Spacer(modifier = Modifier.height(10.dp))

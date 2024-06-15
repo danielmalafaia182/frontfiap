@@ -56,7 +56,7 @@ fun MenuSearchBar(searchBar: String, onSearchBarChange: (String) -> Unit) {
             trailingIcon = {
                 Icon(
                     imageVector = Icons.Outlined.Search,
-                    contentDescription = "search icon",
+                    contentDescription = stringResource(id = R.string.search_icon),
                     tint = Color.White
                 )
             }

@@ -1,6 +1,7 @@
 package br.com.fiap.locamail.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,19 +16,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.fiap.locamail.R
 import br.com.fiap.locamail.ui.theme.Inter
 
 class DrawerItem
 
 @Composable
-fun DrawerItem(label: String, count: Int, icon: ImageVector) {
+fun DrawerItem(label: String, count: Int, icon: ImageVector, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .padding(vertical = 8.dp)
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -50,7 +54,7 @@ fun DrawerItem(label: String, count: Int, icon: ImageVector) {
         }
         if (count > 0) {
             Text(
-                text = "${String.format("%02d", count)} novas",
+                text = "${String.format("%02d", count)}" + " " + stringResource(id = R.string.new_count),
                 color = Color.White,
                 fontSize = 14.sp,
                 modifier = Modifier
