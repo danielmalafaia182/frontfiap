@@ -37,7 +37,7 @@ fun ComponenteEmail(email: Email) {
             .fillMaxWidth()
             .padding(end = 8.dp)
             .clickable { /* Handle email click */ }
-            .then(if (email.isRead) Modifier.shadow(4.dp) else Modifier),
+            .then(if (!email.isRead) Modifier.shadow(4.dp) else Modifier),
         colors = CardDefaults.cardColors(containerColor = Color(0xFF181E24))
     ) {
         Row(modifier = Modifier.padding(16.dp)) {
@@ -57,7 +57,7 @@ fun ComponenteEmail(email: Email) {
                 ) {
                     Text(
                         text = email.sender,
-                        color = if (email.isRead) Color.White else Color(0xFF5E5D5D),
+                        color = if (!email.isRead) Color.White else Color(0xFF5E5D5D),
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier.weight(1f),
                         fontFamily = Inter,
@@ -66,7 +66,7 @@ fun ComponenteEmail(email: Email) {
                     Text(
                         text = email.timestamp,
                         fontWeight = FontWeight.Medium,
-                        color = if (email.isRead) Color.White else Color(0xFF5E5D5D),
+                        color = if (!email.isRead) Color.White else Color(0xFF5E5D5D),
                         modifier = Modifier.align(Alignment.CenterVertically),
                         fontFamily = Inter,
                         fontSize = 12.sp
@@ -75,7 +75,7 @@ fun ComponenteEmail(email: Email) {
                 Text(
                     text = email.subject,
                     fontWeight = FontWeight.Bold,
-                    color = if (email.isRead) Color.White else Color(0xFF5E5D5D),
+                    color = if (!email.isRead) Color.White else Color(0xFF5E5D5D),
                     fontFamily = Inter,
                     fontSize = 16.sp
                 )
@@ -83,7 +83,7 @@ fun ComponenteEmail(email: Email) {
                     text = email.body,
                     style = MaterialTheme.typography.bodySmall,
                     overflow = TextOverflow.Ellipsis,
-                    color = if (email.isRead) Color.White else Color(0xFF5E5D5D),
+                    color = if (!email.isRead) Color.White else Color(0xFF5E5D5D),
                     fontFamily = Inter,
                 )
             }

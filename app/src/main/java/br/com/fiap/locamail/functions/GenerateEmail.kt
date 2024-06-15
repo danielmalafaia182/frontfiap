@@ -40,3 +40,9 @@ fun generateEmails(count: Int = Random.nextInt(1, 15)): List<Email> {
         )
     }.sortedByDescending { it.timestamp }
 }
+
+fun Email.contains(query: String): Boolean {
+    return sender.contains(query, ignoreCase = true) ||
+            subject.contains(query, ignoreCase = true) ||
+            body.contains(query, ignoreCase = true)
+}

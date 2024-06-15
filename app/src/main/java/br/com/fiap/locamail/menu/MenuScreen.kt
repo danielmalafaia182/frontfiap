@@ -60,6 +60,7 @@ import br.com.fiap.locamail.components.DrawerItem
 import br.com.fiap.locamail.components.EmailList
 import br.com.fiap.locamail.components.MenuCaixaEmail
 import br.com.fiap.locamail.components.MenuSearchBar
+import br.com.fiap.locamail.functions.contains
 import br.com.fiap.locamail.functions.generateEmails
 import br.com.fiap.locamail.ui.theme.Inter
 import kotlinx.coroutines.launch
@@ -77,10 +78,10 @@ fun MenuScreen(navController: NavController?) {
     val dominioXEmails by remember { mutableStateOf(generateEmails()) }
     val dominioYEmails by remember { mutableStateOf(generateEmails()) }
 
-    val principalUnread = principalEmails.count { !it.isRead }
-    val locaMailUnread = locaMailEmails.count { !it.isRead }
-    val dominioXUnread = dominioXEmails.count { !it.isRead }
-    val dominioYUnread = dominioYEmails.count { !it.isRead }
+    val filteredPrincipalEmails = principalEmails.filter { it.contains(searchBar) }
+    val filteredLocaMailEmails = locaMailEmails.filter { it.contains(searchBar) }
+    val filteredDominioXEmails = dominioXEmails.filter { it.contains(searchBar) }
+    val filteredDominioYEmails = dominioYEmails.filter { it.contains(searchBar) }
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
@@ -88,18 +89,38 @@ fun MenuScreen(navController: NavController?) {
     ModalDrawer(
         drawerState = drawerState,
         drawerContent = {
-            Column(modifier = Modifier
-                .fillMaxHeight()
-                .background(Color(0xFF181E24))
-                .padding(16.dp)
-                .padding(top = 16.dp)
-            ) {Image(
-                painter = painterResource(id = R.drawable.logoheader),
-                contentDescription = "LocaMail logo",
+            Column(
                 modifier = Modifier
-                    .width(107.18.dp)
-                    .height(27.47.dp)
-            )
+                    .fillMaxHeight()
+                    .background(Color(0xFF181E24))
+                    .padding(16.dp)
+                    .padding(top = 16.dp)
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.logoheader),
+                        contentDescription = "LocaMail logo",
+                        modifier = Modifier
+                            .width(107.18.dp)
+                            .height(27.47.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Column {
+                        Text(
+                            text = "OFFLINE",
+                            color = Color(0xFFF00843),
+                            fontWeight = FontWeight.Medium,
+                            modifier = Modifier
+                                .padding(vertical = 8.dp)
+                                .offset(y = 5.dp),
+                            fontFamily = Inter,
+                            fontSize = 14.sp
+                        )
+                    }
+                }
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = "CAIXAS DE ENTRADA",
@@ -109,21 +130,21 @@ fun MenuScreen(navController: NavController?) {
                     fontFamily = Inter,
                     fontSize = 12.sp
                 )
-                DrawerItem("Principal", principalUnread, Icons.Default.Inbox)
-                DrawerItem("LocaMail", locaMailUnread, Icons.Default.LocalOffer)
-                DrawerItem("Domínio X", dominioXUnread, Icons.Default.People)
-                DrawerItem("Domínio Y", dominioYUnread, Icons.Default.People)
+                DrawerItem("Principal", filteredPrincipalEmails.size, Icons.Default.Inbox)
+                DrawerItem("LocaMail", filteredLocaMailEmails.size, Icons.Default.LocalOffer)
+                DrawerItem("Domínio X", filteredDominioXEmails.size, Icons.Default.People)
+                DrawerItem("Domínio Y", filteredDominioYEmails.size, Icons.Default.People)
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = "EMAILS",
                     color = Color.White,
-                    fontWeight = FontWeight.Medium,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(vertical = 8.dp),
                     fontFamily = Inter,
                     fontSize = 12.sp
                 )
                 DrawerItem("Com estrela", 4, Icons.Default.Star)
-                DrawerItem("Adiados", 12, Icons.Default.Schedule)
+                DrawerItem("Baixados", 12, Icons.Default.Schedule)
                 DrawerItem("Importante", 32, Icons.Default.LabelImportant)
                 DrawerItem("Enviados", 0, Icons.Default.Send)
                 DrawerItem("Programado", 0, Icons.Default.ScheduleSend)
@@ -131,6 +152,16 @@ fun MenuScreen(navController: NavController?) {
                 DrawerItem("Rascunhos", 0, Icons.Default.Drafts)
                 DrawerItem("Spam", 0, Icons.Default.Report)
                 DrawerItem("Lixeira", 0, Icons.Default.Delete)
+                Row {
+                    Text(
+                        text = "ATUALIZAREMOS AO SE CONECTAR",
+                        color = Color(0xFFF00843),
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(vertical = 8.dp),
+                        fontFamily = Inter,
+                        fontSize = 14.sp
+                    )
+                }
             }
         },
         content = {
@@ -172,42 +203,45 @@ fun MenuScreen(navController: NavController?) {
                     ) {
                         MenuCaixaEmail(
                             isEmailListVisible = isPrincipalVisible,
-                            unreadCount = principalUnread,
+                            unreadCount = filteredPrincipalEmails.count { !it.isRead },
                             onClick = { isPrincipalVisible = !isPrincipalVisible },
                             nomeCaixaEmail = stringResource(id = R.string.all_email_boxes)
                         )
                         if (isPrincipalVisible) {
-                            EmailList(emails = principalEmails)
+                            EmailList(emails = filteredPrincipalEmails)
                         }
+
                         MenuCaixaEmail(
                             isEmailListVisible = isLocaMailVisible,
-                            unreadCount = locaMailUnread,
+                            unreadCount = filteredLocaMailEmails.count { !it.isRead },
                             onClick = { isLocaMailVisible = !isLocaMailVisible },
                             nomeCaixaEmail = stringResource(id = R.string.app_name)
                         )
                         if (isLocaMailVisible) {
-                            EmailList(emails = locaMailEmails)
+                            EmailList(emails = filteredLocaMailEmails)
                         }
+
                         MenuCaixaEmail(
                             isEmailListVisible = isDominioXVisible,
-                            unreadCount = dominioXUnread,
+                            unreadCount = filteredDominioXEmails.count { !it.isRead },
                             onClick = { isDominioXVisible = !isDominioXVisible },
                             nomeCaixaEmail = stringResource(id = R.string.x_domain)
                         )
                         if (isDominioXVisible) {
-                            EmailList(emails = dominioXEmails)
+                            EmailList(emails = filteredDominioXEmails)
                         }
+
                         MenuCaixaEmail(
                             isEmailListVisible = isDominioYVisible,
-                            unreadCount = dominioYUnread,
+                            unreadCount = filteredDominioYEmails.count { !it.isRead },
                             onClick = { isDominioYVisible = !isDominioYVisible },
                             nomeCaixaEmail = stringResource(id = R.string.y_domain)
                         )
                         if (isDominioYVisible) {
-                            EmailList(emails = dominioYEmails)
+                            EmailList(emails = filteredDominioYEmails)
                         }
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
                 }
                 FloatingActionButton(
                     onClick = { /* Handle new email click */ },
@@ -216,7 +250,8 @@ fun MenuScreen(navController: NavController?) {
                         .padding(16.dp)
                         .height(48.dp)
                         .width(139.dp)
-                        .offset(y = -(14.dp)
+                        .offset(
+                            y = -(14.dp)
                         ),
                     shape = CircleShape,
                     containerColor = Color(0xFFF00843)
@@ -252,6 +287,7 @@ fun MenuScreen(navController: NavController?) {
         }
     )
 }
+
 
 @Preview(showBackground = true)
 @Composable
