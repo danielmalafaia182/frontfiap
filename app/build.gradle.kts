@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -72,6 +73,9 @@ dependencies {
     implementation("androidx.compose.material:material:1.6.8")
     implementation("androidx.compose.material:material-icons-extended:1.0.0-alpha08")
     implementation("androidx.compose.ui:ui:1.6.8")
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 }
 
 

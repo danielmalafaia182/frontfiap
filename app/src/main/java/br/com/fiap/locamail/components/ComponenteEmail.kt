@@ -27,22 +27,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.fiap.locamail.classes.Email
+import br.com.fiap.locamail.model.EmailItem
 import br.com.fiap.locamail.ui.theme.Inter
 
 @Composable
-fun ComponenteEmail(email: Email) {
+fun ComponenteEmail(emailItem: EmailItem) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(end = 8.dp)
             .clickable { /* Handle email click */ }
-            .then(if (!email.isRead) Modifier.shadow(4.dp) else Modifier),
+            .then(if (!emailItem.isRead) Modifier.shadow(4.dp) else Modifier),
         colors = CardDefaults.cardColors(containerColor = Color(0xFF181E24))
     ) {
         Row(modifier = Modifier.padding(16.dp)) {
             Image(
-                painter = painterResource(id = email.imageId),
+                painter = painterResource(id = emailItem.imageId),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -56,34 +56,34 @@ fun ComponenteEmail(email: Email) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = email.sender,
-                        color = if (!email.isRead) Color.White else Color(0xFF5E5D5D),
+                        text = emailItem.sender,
+                        color = if (!emailItem.isRead) Color.White else Color(0xFF5E5D5D),
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier.weight(1f),
                         fontFamily = Inter,
                         fontSize = 12.sp
                     )
                     Text(
-                        text = email.timestamp,
+                        text = emailItem.timestamp,
                         fontWeight = FontWeight.Medium,
-                        color = if (!email.isRead) Color.White else Color(0xFF5E5D5D),
+                        color = if (!emailItem.isRead) Color.White else Color(0xFF5E5D5D),
                         modifier = Modifier.align(Alignment.CenterVertically),
                         fontFamily = Inter,
                         fontSize = 12.sp
                     )
                 }
                 Text(
-                    text = email.subject,
+                    text = emailItem.subject,
                     fontWeight = FontWeight.Bold,
-                    color = if (!email.isRead) Color.White else Color(0xFF5E5D5D),
+                    color = if (!emailItem.isRead) Color.White else Color(0xFF5E5D5D),
                     fontFamily = Inter,
                     fontSize = 16.sp
                 )
                 Text(
-                    text = email.body,
+                    text = emailItem.body,
                     style = MaterialTheme.typography.bodySmall,
                     overflow = TextOverflow.Ellipsis,
-                    color = if (!email.isRead) Color.White else Color(0xFF5E5D5D),
+                    color = if (!emailItem.isRead) Color.White else Color(0xFF5E5D5D),
                     fontFamily = Inter,
                 )
             }

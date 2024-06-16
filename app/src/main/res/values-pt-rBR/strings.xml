@@ -27,4 +27,5 @@
     <string name="CALENDAR">CALENDÁRIO</string>
     <string name="online_update_message">ATUALIZAREMOS AO SE CONECTAR</string>
     <string name="new_email">Novo Email</string>
+    <string name="mic_icon">Ícone Microfone</string>
 </resources>

@@ -1,13 +1,13 @@
 package br.com.fiap.locamail.functions
 
 import br.com.fiap.locamail.R
-import br.com.fiap.locamail.classes.Email
+import br.com.fiap.locamail.model.EmailItem
 import io.github.serpro69.kfaker.Faker
 import kotlin.random.Random
 
 val faker = Faker()
 
-fun generateEmails(count: Int = Random.nextInt(1, 15)): List<Email> {
+fun generateEmails(count: Int = Random.nextInt(1, 15)): List<EmailItem> {
     val imageResources = listOf(
         R.drawable.rosto1,
         R.drawable.rosto2,
@@ -19,7 +19,7 @@ fun generateEmails(count: Int = Random.nextInt(1, 15)): List<Email> {
     val unreadCount = if (count == 1) 1 else Random.nextInt(1, count)
 
     return List(unreadCount) {
-        Email(
+        EmailItem(
             sender = faker.name.firstName().uppercase() + " " + faker.name.lastName().uppercase(),
             subject = faker.random.randomString(min = 3, max = 8).lowercase()
                 .replaceFirstChar { it.uppercase() } + " " + faker.random.randomString(
@@ -41,7 +41,7 @@ fun generateEmails(count: Int = Random.nextInt(1, 15)): List<Email> {
     }.sortedByDescending { it.timestamp }
 }
 
-fun Email.contains(query: String): Boolean {
+fun EmailItem.contains(query: String): Boolean {
     return sender.contains(query, ignoreCase = true) ||
             subject.contains(query, ignoreCase = true) ||
             body.contains(query, ignoreCase = true)

@@ -6,13 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import br.com.fiap.locamail.cadastro.RegisterScreen
 import br.com.fiap.locamail.components.BackPressHandler
 import br.com.fiap.locamail.login.LoginScreen
 import br.com.fiap.locamail.menu.MenuScreen
@@ -30,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = "login"
+                        startDestination = "register"
                     ) {
                         composable(route = "login") {
                             LoginScreen(navController)
@@ -39,7 +37,7 @@ class MainActivity : ComponentActivity() {
                             MenuScreen(navController)
                         }
                         composable(route = "register") {
-                            //RegisterScreen(navController)
+                            RegisterScreen(navController)
                         }
                     }
                     BackPressHandler(navController)

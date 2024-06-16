@@ -2,11 +2,14 @@ package br.com.fiap.locamail.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Mic
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -53,12 +56,24 @@ fun MenuSearchBar(searchBar: String, onSearchBarChange: (String) -> Unit) {
                 focusedBorderColor = Color.Transparent,
                 focusedTextColor = Color.White
             ),
-            trailingIcon = {
+            leadingIcon = {
                 Icon(
                     imageVector = Icons.Outlined.Search,
                     contentDescription = stringResource(id = R.string.search_icon),
                     tint = Color.White
                 )
+                Spacer(modifier = Modifier.width(4.dp))
+            },
+            trailingIcon = {
+                Row(
+                    modifier = Modifier.padding(end = 8.dp) // Add padding to the Row
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Mic,
+                        contentDescription = stringResource(id = R.string.mic_icon),
+                        tint = Color.White
+                    )
+                }
             }
         )
     }

@@ -24,13 +24,11 @@ import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Drafts
 import androidx.compose.material.icons.filled.Inbox
-import androidx.compose.material.icons.filled.LabelImportant
 import androidx.compose.material.icons.filled.LocalOffer
 import androidx.compose.material.icons.filled.Outbox
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Report
 import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material.icons.filled.ScheduleSend
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.rememberDrawerState
@@ -60,7 +58,6 @@ import br.com.fiap.locamail.components.DrawerItem
 import br.com.fiap.locamail.components.EmailList
 import br.com.fiap.locamail.components.MenuCaixaEmail
 import br.com.fiap.locamail.components.MenuSearchBar
-import br.com.fiap.locamail.functions.OnDrawerItemClick
 import br.com.fiap.locamail.functions.contains
 import br.com.fiap.locamail.functions.generateEmails
 import br.com.fiap.locamail.ui.theme.Inter
@@ -258,7 +255,7 @@ fun MenuScreen(navController: NavController?) {
                             nomeCaixaEmail = stringResource(id = R.string.all_email_boxes)
                         )
                         if (isPrincipalVisible) {
-                            EmailList(emails = filteredPrincipalEmails)
+                            EmailList(emailItems = filteredPrincipalEmails)
                         }
                         MenuCaixaEmail(
                             isEmailListVisible = isLocaMailVisible,
@@ -267,7 +264,7 @@ fun MenuScreen(navController: NavController?) {
                             nomeCaixaEmail = stringResource(id = R.string.app_name)
                         )
                         if (isLocaMailVisible) {
-                            EmailList(emails = filteredLocaMailEmails)
+                            EmailList(emailItems = filteredLocaMailEmails)
                         }
 
                         MenuCaixaEmail(
@@ -277,7 +274,7 @@ fun MenuScreen(navController: NavController?) {
                             nomeCaixaEmail = stringResource(id = R.string.x_domain)
                         )
                         if (isDominioXVisible) {
-                            EmailList(emails = filteredDominioXEmails)
+                            EmailList(emailItems = filteredDominioXEmails)
                         }
 
                         MenuCaixaEmail(
@@ -287,7 +284,7 @@ fun MenuScreen(navController: NavController?) {
                             nomeCaixaEmail = stringResource(id = R.string.y_domain)
                         )
                         if (isDominioYVisible) {
-                            EmailList(emails = filteredDominioYEmails)
+                            EmailList(emailItems = filteredDominioYEmails)
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                     }
